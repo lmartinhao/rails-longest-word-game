@@ -9,10 +9,9 @@ class GamesController < ApplicationController
   def english_word
     word_dictionary = open("https://wagon-dictionary.herokuapp.com/#{@answer}")
     word = JSON.parse(word_dictionary.read.to_s)
-    return word['found']
+    word['found']
   end
 
-  # The method returns true if the block never returns false or nil
   def letter_in_grid
     @answer = params[:word]
     @grid = params[:grid]
