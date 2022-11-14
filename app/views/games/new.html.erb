@@ -1,0 +1,26 @@
+<h1>New game</h1>
+
+<div class="d-flex">
+  <% @letters.each do |letter| %>
+    <div class="card" style="width: 50px; text-align: center; margin: 5px;">
+      <div class="card-body" style="padding: 15px;"> <%= letter %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<div style="margin-top: 40px;">
+  <p>What is the longest word you can find?</p>
+</div>
+
+<form class="row g-3" action="/score" method="POST" data-turbo="false">
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+  <%= hidden_field_tag :grid, @letters %>
+  <div class="col-sm-5">
+    <label for="inputWord" class="visually-hidden">Word</label>
+    <input type="text" name='word' class="form-control" id="inputWord" placeholder="Your word here">
+  </div>
+  <div class="col-auto">
+    <button type="submit" class="btn btn-outline-dark mb-3">Play</button>
+  </div>
+</form>
