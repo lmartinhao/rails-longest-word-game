@@ -7,18 +7,15 @@ class GamesController < ApplicationController
   end
 
   def english_word
-    word_dictionary = open("https://wagon-dictionary.herokuapp.com/#{@answer}")
-    word = JSON.parse(word_dictionary.read.to_s)
+    word_dictionary = URI.open("https://wagon-dictionary.herokuapp.com/#{@answer}").read
+    word = JSON.parse(word_dictionary)
     word['found']
   end
 
   def letter_in_grid
-    @answer = params[:word]
     @grid = params[:grid]
-    @answer_letters = @answer.chars
-    @answer_letters.each do |letter|
-      @grid.include?(letter)
-    end
+    @answer = params[:word]
+    @look = @answer.chars.sort.all? { |letter| @grid.include?(letter) }
   end
 
   def score
@@ -27,9 +24,9 @@ class GamesController < ApplicationController
     grid_letters = @grid.each_char do |letter|
       print "#{letter} "
     end
-    if letter_in_grid && english_word
+    if letter_in_grid == true && english_word == true
       @result = "Congratulation! #{@answer.upcase} is a valid English word."
-    elsif letter_in_grid
+    elsif letter_in_grid == true
       @result = "Sorry but #{@answer.upcase} does not seem to be an English word."
     else
       @result = "Sorry, but #{@answer.upcase} can’t be built out of #{grid_letters}."
