@@ -27,7 +27,7 @@ class GamesController < ApplicationController
     if letter_in_grid == true && english_word == true
       @result = "Congratulation! #{@answer.upcase} is a valid English word."
     elsif letter_in_grid == true
-      @result = "Sorry but #{@answer.upcase} does not seem to be an English word."
+      @result = "Sorry, but #{@answer.upcase} does not seem to be an English word."
     else
       @result = "Sorry, but #{@answer.upcase} can’t be built out of #{grid_letters}."
     end
